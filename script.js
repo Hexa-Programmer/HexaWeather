@@ -178,7 +178,7 @@ function getWeatherDetails(code, isDay) {
 
     if (code === 0) return { emoji: sunMoon, animation: isDay ? "animate-spin" : "animate-float", text: "Clear Sky" };
     if (code > 0 && code <= 3) return { emoji: cloudMoon, animation: "animate-float", text: "Partly Cloudy" };
-    if (code === 45 || code === 48) return { emoji: "🌫️", animation: "animate-float", text: "Foggy" };
+    if (code === 45 || code === 48) return { emoji: "🌕", animation: "animate-float", text: "Foggy" };
     if ((code >= 51 && code <= 57) || (code >= 61 && code <= 67) || (code >= 80 && code <= 82)) 
         return { emoji: "🌧️", animation: "animate-float", text: "Rainy" };
     if ((code >= 71 && code <= 77) || code === 85 || code === 86) 
