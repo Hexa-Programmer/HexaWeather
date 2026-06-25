@@ -1,105 +1,56 @@
 <!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HexaWallet</title>
+    <title>HexaWeather</title>
 
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 
-<body>
-
-<div id="loadingScreen">
+<body class="theme-day"> <div id="loadingScreen">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
-    <h1>Welcome to HexaWallet</h1>
+    <h1>Welcome to HexaWeather</h1>
 </div>
 
 <div class="container" id="appContainer">
 
     <div class="sidebar">
-
         <div class="sidebar-header">
-            <h2>HexaWallet</h2>
-            <button class="new-btn" onclick="createEntry()">
-                New Entry
-            </button>
+            <h2>HexaWeather</h2>
+        </div>
+        
+        <div class="search-container">
+            <input id="search" placeholder="Search city..." autocomplete="off" />
+            <div id="suggestions" class="suggestions-dropdown"></div>
         </div>
 
-        <div id="entryList" class="entries-container"></div>
-
+        <div id="recent" class="recent-container"></div>
     </div>
 
     <div class="editor">
-
         <div class="display-card">
-
             <div class="editor-header">
-                <button class="back-btn" onclick="closeEntry()">
-                    ‹ Entries
-                </button>
-
-                <button class="delete-btn" onclick="deleteEntry()">
-                    Delete
-                </button>
+                <button class="back-btn" onclick="closeWeather()">‹ Search</button>
+                <button class="delete-btn" onclick="clearHistory()">Clear History</button>
             </div>
 
-            <input
-                id="serviceName"
-                type="text"
-                placeholder="Website / Service"
-            >
-
-            <input
-                id="username"
-                type="text"
-                placeholder="Username / Email"
-            >
-
-            <div class="password-row">
-
-                <input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                >
-
-                <button
-                    class="icon-btn"
-                    onclick="togglePassword()"
-                >
-                    Show Password
-                </button>
-
+            <div class="weather-info">
+                <h1 id="city">--</h1>
+                <div class="temp-wrapper">
+                    <div id="weatherIcon" class="weather-icon">✨</div>
+                    <div id="temp">--°C</div>
+                </div>
+                <div id="desc">Loading...</div>
             </div>
 
-            <div class="generator-controls">
-
-                <input
-                    id="length"
-                    type="range"
-                    min="8"
-                    max="64"
-                    value="20"
-                >
-
-                <span id="lengthValue">20</span>
-
-                <button
-                    class="generate-btn"
-                    onclick="generatePassword()"
-                >
-                    Generate Password
-                </button>
-
-            </div>
-
+            <div id="forecast"></div>
         </div>
-
     </div>
 
 </div>
