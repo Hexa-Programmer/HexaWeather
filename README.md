@@ -1,11 +1,9 @@
 # HexaWeather
 
 View HexaWeather at: https://hexa-programmer.github.io/HexaWeather/
-
-![HexaWeather Gameplay](showcase.png)
-
 HexaWeather is a minimal, web application built using HTML, CSS, and JavaScript.  
 It fetches live weather data from the Open-Meteo API and runs entirely in the browser with no backend.
+![HexaWeather Gameplay](showcase.png)
 
 ---
 
