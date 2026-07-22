@@ -297,6 +297,7 @@ body {
     flex-direction: column;
     overflow-y: auto;
     transition: background 0.5s ease, color 0.5s ease;
+    position: relative;
 }
 
 .mobile-menu-btn {
@@ -370,6 +371,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 16px;
+    z-index: 2;
 }
 
 .frequent-card {
@@ -406,6 +408,31 @@ body {
     opacity: 0.7;
     font-style: italic;
     grid-column: 1 / -1;
+}
+
+.dashboard-illustration {
+    position: absolute;
+    bottom: 25px;
+    right: 35px;
+    width: 480px;
+    max-width: 55%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.dashboard-illustration svg {
+    width: 100%;
+    height: auto;
+}
+
+.animate-spin-slow {
+    transform-origin: 210px 80px;
+    animation: slowSpin 25s linear infinite;
+}
+
+.animate-float-delayed {
+    animation: float 4s ease-in-out 1s infinite;
 }
 
 .editor-header {
@@ -577,6 +604,14 @@ body {
 
     .mobile-menu-btn {
         display: block;
+    }
+
+    .dashboard-illustration {
+        width: 220px;
+        max-width: 60%;
+        bottom: 15px;
+        right: 15px;
+        opacity: 0.5;
     }
 
     .editor-header { justify-content: space-between; }
