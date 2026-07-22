@@ -25,7 +25,7 @@ function showDashboard() {
     renderDashboard();
 
     if (window.innerWidth <= 768) {
-        closeWeather();
+        appContainer.classList.add('weather-open');
     }
 }
 

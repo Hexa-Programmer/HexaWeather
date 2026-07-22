@@ -299,6 +299,12 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
 }
 
+.mobile-menu-btn {
+    display: none;
+    align-self: flex-start;
+    margin-bottom: 12px;
+}
+
 .dashboard-header h1 {
     font-size: 36px;
     font-weight: 700;
@@ -559,6 +565,10 @@ body {
         border-radius: 0;
         border: none;
         padding: 40px 24px;
+    }
+
+    .mobile-menu-btn {
+        display: inline-block;
     }
 
     .editor-header { justify-content: space-between; }
