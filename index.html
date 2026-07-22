@@ -24,6 +24,12 @@
         <div class="sidebar-header">
             <h2>HexaWeather</h2>
         </div>
+
+        <div class="nav-menu">
+            <div id="navHome" class="nav-item active" onclick="showDashboard()">
+                Home
+            </div>
+        </div>
         
         <div class="search-container">
             <input id="search" placeholder="Search city..." autocomplete="off" />
@@ -34,9 +40,39 @@
     </div>
 
     <div class="editor">
-        <div class="display-card">
+
+        <div id="dashboardCard" class="display-card dashboard-view">
+            <div class="dashboard-header">
+                <h1>Overview</h1>
+                <p>Welcome back to your weather hub</p>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <span class="stat-label">Frequent Cities Avg</span>
+                    <span class="stat-value" id="statAvgTemp">--°C</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Top Searched</span>
+                    <span class="stat-value" id="statMostSearched">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Saved Searches</span>
+                    <span class="stat-value" id="statTotalCities">0</span>
+                </div>
+            </div>
+
+            <div class="dashboard-section-title">
+                <h3>Frequently Searched Cities</h3>
+            </div>
+
+            <div id="frequentCitiesGrid" class="frequent-grid"></div>
+        </div>
+
+
+        <div id="weatherCard" class="display-card weather-view" style="display: none;">
             <div class="editor-header">
-                <button class="back-btn" onclick="closeWeather()">‹ Search</button>
+                <button class="back-btn" onclick="showDashboard()">‹ Home</button>
                 <button class="delete-btn" onclick="clearHistory()">Clear History</button>
             </div>
 

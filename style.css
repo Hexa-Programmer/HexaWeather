@@ -161,6 +161,31 @@ body {
     font-weight: 600;
 }
 
+.nav-menu {
+    padding: 0 10px 10px 10px;
+}
+
+.nav-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-item:hover {
+    background: var(--hover-color);
+}
+
+.nav-item.active {
+    background: var(--active-color);
+    color: var(--accent);
+}
+
 .search-container {
     padding: 0 20px 15px 20px;
     position: relative;
@@ -274,9 +299,105 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
 }
 
+.dashboard-header h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.dashboard-header p {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 24px;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.75;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dashboard-section-title {
+    margin-bottom: 16px;
+}
+
+.dashboard-section-title h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.frequent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.frequent-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.frequent-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.frequent-city {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.frequent-temp {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.no-dashboard-data {
+    font-size: 14px;
+    opacity: 0.7;
+    font-style: italic;
+    grid-column: 1 / -1;
+}
+
 .editor-header {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: space-between; 
     margin-bottom: 24px;
 }
 
@@ -293,11 +414,12 @@ body {
 
 .back-btn {
     color: var(--card-text);
-    display: none;
+    display: block;
+    background: rgba(255,255,255,0.1);
 }
 
 .back-btn:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.25);
 }
 
 .delete-btn {

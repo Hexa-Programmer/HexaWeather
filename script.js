@@ -9,13 +9,37 @@ const forecastEl = document.getElementById("forecast");
 const recentEl = document.getElementById("recent");
 const appContainer = document.getElementById("appContainer");
 
+const dashboardCard = document.getElementById("dashboardCard");
+const weatherCard = document.getElementById("weatherCard");
+const navHome = document.getElementById("navHome");
+
 let currentCity = null;
 let recent = JSON.parse(localStorage.getItem("hexa_weather_recent") || "[]");
+
+function showDashboard() {
+    currentCity = null;
+    dashboardCard.style.display = "flex";
+    weatherCard.style.display = "none";
+    if (navHome) navHome.classList.add("active");
+    renderRecent();
+    renderDashboard();
+
+    if (window.innerWidth <= 768) {
+        closeWeather();
+    }
+}
+
+function showWeatherView() {
+    dashboardCard.style.display = "none";
+    weatherCard.style.display = "flex";
+    if (navHome) navHome.classList.remove("active");
+}
 
 function saveRecent(city) {
     recent = [city, ...recent.filter(c => c !== city)].slice(0, 10);
     localStorage.setItem("hexa_weather_recent", JSON.stringify(recent));
     renderRecent();
+    renderDashboard();
 }
 
 function renderRecent() {
@@ -115,6 +139,7 @@ async function getCoords(city) {
 }
 
 async function getWeather(city, isUserAction = false) {
+    showWeatherView();
     cityEl.textContent = "Loading...";
     tempEl.textContent = "--°C";
     descEl.textContent = "Fetching weather data...";
@@ -208,6 +233,65 @@ function renderForecast(daily) {
     }
 }
 
+async function renderDashboard() {
+    const grid = document.getElementById("frequentCitiesGrid");
+    const statAvgTemp = document.getElementById("statAvgTemp");
+    const statMostSearched = document.getElementById("statMostSearched");
+    const statTotalCities = document.getElementById("statTotalCities");
+
+    if (!grid) return;
+
+    statTotalCities.textContent = recent.length;
+    statMostSearched.textContent = recent.length > 0 ? recent[0] : "--";
+
+    const topCities = recent.slice(0, 6);
+
+    if (topCities.length === 0) {
+        grid.innerHTML = "<div class='no-dashboard-data'>Search cities to build your dashboard</div>";
+        statAvgTemp.textContent = "--°C";
+        return;
+    }
+
+    grid.innerHTML = "";
+    let totalTemp = 0;
+    let fetchedCount = 0;
+
+    for (const city of topCities) {
+        const card = document.createElement("div");
+        card.className = "frequent-card";
+        card.onclick = () => getWeather(city, true);
+
+        card.innerHTML = `
+            <div class="frequent-city">${city}</div>
+            <div class="frequent-temp">Loading...</div>
+        `;
+        grid.appendChild(card);
+
+        getCoords(city).then(loc => {
+            if (!loc) {
+                card.querySelector(".frequent-temp").textContent = "N/A";
+                return;
+            }
+
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current_weather=true`)
+                .then(res => res.json())
+                .then(data => {
+                    const temp = Math.round(data.current_weather.temperature);
+                    const details = getWeatherDetails(data.current_weather.weathercode, data.current_weather.is_day);
+
+                    card.querySelector(".frequent-temp").innerHTML = `${details.emoji} ${temp}°C`;
+
+                    totalTemp += temp;
+                    fetchedCount++;
+                    statAvgTemp.textContent = `${Math.round(totalTemp / fetchedCount)}°C`;
+                })
+                .catch(() => {
+                    card.querySelector(".frequent-temp").textContent = "Error";
+                });
+        });
+    }
+}
+
 function closeWeather() {
     appContainer.classList.remove('weather-open');
 }
@@ -218,6 +302,7 @@ function clearHistory() {
     recent = [];
     localStorage.removeItem("hexa_weather_recent");
     renderRecent();
+    showDashboard();
     
     if (window.innerWidth <= 768) {
         closeWeather();
@@ -229,13 +314,7 @@ function init() {
     const hour = new Date().getHours();
     document.body.className = (hour >= 6 && hour < 18) ? 'theme-day' : 'theme-night';
 
-    renderRecent();
-    
-    if (recent.length > 0) {
-        getWeather(recent[0], false);
-    } else {
-        getWeather("London", false);
-    }
+    showDashboard();
 
     setTimeout(() => {
         document.getElementById('loadingScreen').classList.add('hide-loader');
